@@ -1,0 +1,51 @@
+<a routerLink="/frontpage"><i class="fa-solid fa-arrow-left top-7 left-10 text-2xl fixed hover:cursor-pointer hover:text-4xl"></i></a>
+<div class="flex pt-2 lg:flex-row flex-col-reverse md:flex-row justify-center">
+  
+  <div class="p-5 lg:mx-0 mx-auto lg:w-1/3 w-auto">
+    <button (click)="toggleItems()" class="text-white lg:w-1/2 w-full bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      {{ showAllItems ? "Skjul" : "Vis varer du har lagt til før" }}
+    </button>
+    <div *ngIf="showAllItems">
+      <h1>Varer du har lagt til før:</h1>
+
+      <div *ngFor="let item of allItems">
+        <button (click)="addItemToList(item.id, listId)" class="py-0.5 px-5 lg:w-1/2 w-full me-2 mb-1 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          {{ item.item_name }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-5 lg:w-1/3 w-full lg:mx-0 mx-10">
+    <div class="text-2xl">{{ myList?.list_name }}</div>
+    <div class="mb-2 text-sm">Lagd: {{ myList?.created_at | date : "dd. MMMM. yyyy HH:mm" }}</div>
+    <div *ngFor="let item of myList?.items; let i = index" class="flex flex-row w-2/3 text-lg py-1 my-1 align-bottom border-b-2 border-slate-800">
+      <s class="mr-auto" *ngIf="itemsOnList[i]?.is_completed; else noStrike"><div (click)="strikeOut(item.id, listId)">{{ item?.item_name }}</div></s>
+      <ng-template #noStrike><div (click)="strikeOut(item.id, listId)" class="mr-auto">{{ item?.item_name }}</div></ng-template>
+      <i
+        class="fa-solid fa-trash-can text-red-700 pl-5 hover:cursor-pointer pt-2 mr-4"
+        (click)="deleteFromList(item.id, myList.id)"
+      ></i>
+    </div>
+  </div>
+
+  <div class="pt-5 lg:mx-0 mx-auto" (click)="clearSearch()">
+    <input
+      id="searchBar"
+      type="text"
+      #item_name
+      (keydown.enter)="addItem(item_name.value)"
+      (input)="searchItem(item_name.value)"
+      class="w-auto p-2 text-sm text-gray-900 border border-gray-500 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Legg til ny vare"
+    />
+    <button (click)="addItem(item_name.value)" class="text-3xl pl-2">
+      <i class="fa-solid fa-check" style="color: #00db1a"></i>
+    </button>
+    <div *ngFor="let item of searchResult">
+      <button (click)="addItemToList(item.id, listId)" class="py-0.5 px-5 w-full me-2 mb-1 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+        {{ item.item_name }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="flex pt-5 lg:flex-row flex-col md:flex-row justify-center">
+  <div class="mx-auto">
+    <app-create-list></app-create-list>
+  </div>
+
+  <div class="mx-auto lg:mt-0 md:mt-0 mt-5">
+    <h1 class="text-xl pb-3">Alle listene du har:</h1>
+    <div
+      *ngFor="let list of allLists"
+      class="border-b-2 border-slate-800 p-2 my-2"
+    >
+      <a [routerLink]="'/list/' + list.id"><div>{{ list.list_name }}</div></a>
+      <div>
+        Lagd: {{ list.created_at | date : "dd. MMMM. yyyy HH:mm" }}
+        <i
+          class="fa-solid fa-trash-can text-red-700 pl-5 hover:text-2xl hover:cursor-pointer pt-2 mr-4"
+          (click)="deleteList(list.id)"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<h1>Lag en ny liste</h1>
+<input
+  (keydown.enter)="addShoppingList(name.value)"
+  class="w-auto p-2 text-sm text-gray-900 border border-gray-500 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  placeholder="Navn på listen"
+  type="text"
+  #name
+/>
+<button (click)="addShoppingList(name.value)" class="text-2xl pl-2">
+  <i class="fa-solid fa-check" style="color: #00db1a"></i>
+</button>
+<div *ngIf="newShoppingList">
+  Du har lagd den nye listen: {{ newShoppingList.list_name }}
+</div>
