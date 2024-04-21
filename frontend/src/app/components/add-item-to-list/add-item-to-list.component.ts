@@ -67,13 +67,13 @@ export class AddItemToListComponent {
   }
 
   searchItem(search: string): void {
-    console.log(search);
-    if (!search) {
-      this.clearSearch();
-    }
+  if (search === null || search === undefined || search.trim() === '') {
+    this.clearSearch();
+  } else {
     this.itemService.searchItems(search).subscribe(items => {
       this.searchResult = items;
     });
+  }
   }
 
   clearSearch(): void {
