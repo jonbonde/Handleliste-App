@@ -23,9 +23,9 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: frontend    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './frontend'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '22.7.0'                # set this to the node version to use
+  AZURE_WEBAPP_NAME: Handleliste-App    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '../frontend'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '20.x'                # set this to the node version to use
 
 permissions:
   contents: read
